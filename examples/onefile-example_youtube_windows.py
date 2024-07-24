@@ -1,30 +1,12 @@
 from tsup.youtube.youtube_upload import YoutubeUpload
+from tsup.youtube.validate_params import VideoSetting
 from datetime import datetime, date, timedelta
 import asyncio
-from tsup.utils.webdriver.setupPL import checkRequirments
-import os 
+from tsup.utils.tools import load_config_from_json
+import os,json
 
 # If it is the first time you've run the utility, a browser window should popup and prompt you to provide Youtube credentials. A token will be created and stored in request.token file in the local directory for subsequent use.
 
-profilepath = (
-    r"D:\Download\audio-visual\make-text-video\reddit-to-video\assets\profile\fastlane"
-)
-channel_cookie_path = r"D:\Download\audio-visual\saas\tiktoka\tiktoka-studio-uploader\offloaddogsboner-cookie.json"
-
-videopath = r"D:\Download\audio-visual\saas\tiktoka\tiktoka-studio-uploader\tests\1.mp4"
-tags = ["ba,baaa,bababa"]
-date_to_publish = ""
-# if you use some kinda of proxy to access youtube,
-proxy_option = "socks5://127.0.0.1:1080"
-
-# for cookie issue,
-video_title = "bababala"
-video_title = video_title[:95]
-username = "edwin.uestc@gmail.com"
-password = "U437P8Is9prmNquVerHJ9%R00bn"
-video_description = "========================balabala"
-invalid_thumbnail = r"D:\Download\audio-visual\make-reddit-video\reddit-to-video\assets\ace\ace-attorney_feature.jpg"
-thumbnail_local_path = r"D:\Download\audio-visual\saas\tiktoka\ytb-up\tests\1\sp\1-001.jpg"
 
 
 wait = 0
@@ -32,39 +14,55 @@ wait = 0
 # 1-wait Processing done
 # 2-wait Checking done
 
+channelconfig = load_config_from_json('youtube-account-test.json')
 
 # auto install requirments for user
 # checkRequirments()
-upload = YoutubeUpload(
-    # use r"" for paths, this will not give formatting errors e.g. "\n"
-    root_profile_directory="",
-    proxy_option=proxy_option,
-    is_open_browser=False,
-    debug=True,
-    use_stealth_js=False,
-    # if you want to silent background running, set watcheveryuploadstep false
-    channel_cookie_path=channel_cookie_path,
-    username=username,
-    browser_type="firefox",
-    wait_policy="go next after copyright check success",
-    password=password,
-    is_record_video=True
-    # for test purpose we need to check the video step by step ,
-)
+upload = YoutubeUpload(channelconfig)
 today = date.today()
 
 
-def instantpublish():
-    asyncio.run(
-        upload.upload(
-            video_local_path=videopath,
-            video_title="instant publish-test-005",
-            video_description=video_description,
-            thumbnail_local_path=thumbnail_local_path,
-            tags=tags,
-            publish_policy=1,
-        )
-    )
+def instantpublish(upload_video,video_settings):
+    """Upload video using config."""
+
+    videosettings = {
+
+            "video_title": video_settings.get('video_title', VideoSetting.default_values['video_title']),
+            "video_description": video_settings.get('video_description', VideoSetting.default_values['video_description']),
+            "wait_policy": video_settings.get('wait_policy', VideoSetting.default_values['wait_policy']),
+            "thumbnail_local_path": video_settings.get('thumbnail_local_path', VideoSetting.default_values['thumbnail_local_path']),
+            "publish_policy": video_settings.get('publish_policy', VideoSetting.default_values['publish_policy']),
+            "tags": video_settings.get('tags', VideoSetting.default_values['tags']),
+            "release_date": video_settings.get('release_date', VideoSetting.default_values['release_date']),
+            "release_date_hour": video_settings.get('release_date_hour', VideoSetting.default_values['release_date_hour']),
+            "playlist": video_settings.get('playlist', VideoSetting.default_values['playlist']),
+            "is_age_restriction": video_settings.get('is_age_restriction', VideoSetting.default_values['is_age_restriction']),
+            "is_not_for_kid": video_settings.get('is_not_for_kid', VideoSetting.default_values['is_not_for_kid']),
+            "is_paid_promotion": video_settings.get('is_paid_promotion', VideoSetting.default_values['is_paid_promotion']),
+            "is_automatic_chapters": video_settings.get('is_automatic_chapters', VideoSetting.default_values['is_automatic_chapters']),
+            "is_featured_place": video_settings.get('is_featured_place', VideoSetting.default_values['is_featured_place']),
+            "video_language": video_settings.get('video_language', VideoSetting.default_values['video_language']),
+            "captions_certification": video_settings.get('captions_certification', VideoSetting.default_values['captions_certification']),
+            "video_film_date": video_settings.get('video_film_date', VideoSetting.default_values['video_film_date']),
+            "video_film_location": video_settings.get('video_film_location', VideoSetting.default_values['video_film_location']),
+            "license_type": video_settings.get('license_type', VideoSetting.default_values['license_type']),
+            "is_allow_embedding": video_settings.get('is_allow_embedding', VideoSetting.default_values['is_allow_embedding']),
+            "is_publish_to_subscriptions_feed_notify": video_settings.get('is_publish_to_subscriptions_feed_notify', VideoSetting.default_values['is_publish_to_subscriptions_feed_notify']),
+            "shorts_remixing_type": video_settings.get('shorts_remixing_type', VideoSetting.default_values['shorts_remixing_type']),
+            "categories": video_settings.get('categories', VideoSetting.default_values['categories']),
+            "comments_ratings_policy": video_settings.get('comments_ratings_policy', VideoSetting.default_values['comments_ratings_policy']),
+            "is_show_howmany_likes": video_settings.get('is_show_howmany_likes', VideoSetting.default_values['is_show_howmany_likes']),
+            "is_monetization_allowed": video_settings.get('is_monetization_allowed', VideoSetting.default_values['is_monetization_allowed']),
+            "first_comment": video_settings.get('first_comment', VideoSetting.default_values['first_comment']),
+            "subtitles": video_settings.get('subtitles', VideoSetting.default_values['subtitles'])
+        }
+
+
+    # Loading configuration and validating
+    try:
+        upload_video(videosettings)
+    except ValueError as e:
+        print(e)
 
 
 def saveasprivatedraft():
@@ -191,6 +189,7 @@ def scheduletopublish_at_specific_date():
     #                     date.today().year,  date.today().month,  date.today().day, 10, 15)
     #             else:
     #                 date_to_publish += offset
+video_settings = json.loads('youtube-test-video.json')
 
 checkfilebroken(channel_cookie_path)
 checkfilebroken(thumbnail_local_path)
@@ -199,5 +198,5 @@ scheduletopublish_tomorrow()
 scheduletopublish_at_specific_date()
 scheduletopublish_every7days()
 saveasprivatedraft()
-instantpublish()
+instantpublish(video_settings)
 # friststart()

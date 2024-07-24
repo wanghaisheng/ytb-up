@@ -13,13 +13,13 @@ import threading
 
 from tsup.utils.log import log
 from tsup.utils.tools import Singleton
-from tsup.utils.webdriver.playwright_driver_async import PlaywrightAsyncDriver
+from tsup.utils.webdriver.DPhelper import DPHelper
 
 
 @Singleton
-class WebDriverPoolPlayWright:
+class WebDriverPoolDP:
     def __init__(
-        self, pool_size=5, driver_cls=PlaywrightAsyncDriver, thread_safe=False, **kwargs
+        self, pool_size=5, driver_cls=DPHelper, thread_safe=False, **kwargs
     ):
         """
 

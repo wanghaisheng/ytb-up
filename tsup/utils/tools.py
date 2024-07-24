@@ -47,8 +47,6 @@ from requests.cookies import RequestsCookieJar
 from w3lib.url import canonicalize_url as _canonicalize_url
 
 import tsup.setting as setting
-from tsup.utils.email_sender import EmailSender
-from tsup.utils.log import log
 
 try:
     import execjs  # pip install PyExecJS
@@ -63,14 +61,6 @@ ssl._create_default_https_context = ssl._create_unverified_context
 TIME_OUT = 30
 TIMER_TIME = 5
 
-redisdb = None
-
-
-def get_redisdb():
-    global redisdb
-    if not redisdb:
-        redisdb = RedisDB()
-    return redisdb
 
 
 # 装饰器
@@ -2770,40 +2760,6 @@ def dingding_warning(
         return False
 
 
-def email_warning(
-    message,
-    title,
-    message_prefix=None,
-    email_sender=None,
-    email_password=None,
-    email_receiver=None,
-    email_smtpserver=None,
-    rate_limit=None,
-):
-    # 为了加载最新的配置
-    email_sender = email_sender or setting.EMAIL_SENDER
-    email_password = email_password or setting.EMAIL_PASSWORD
-    email_receiver = email_receiver or setting.EMAIL_RECEIVER
-    email_smtpserver = email_smtpserver or setting.EMAIL_SMTPSERVER
-    rate_limit = rate_limit if rate_limit is not None else setting.WARNING_INTERVAL
-
-    if not all([message, email_sender, email_password, email_receiver]):
-        return
-
-    if reach_freq_limit(
-        rate_limit, email_receiver, email_sender, message_prefix or message
-    ):
-        log.info("报警时间间隔过短，此次报警忽略。 内容 {}".format(message))
-        return
-
-    if isinstance(email_receiver, str):
-        email_receiver = [email_receiver]
-
-    with EmailSender(
-        username=email_sender, password=email_password, smtpserver=email_smtpserver
-    ) as email:
-        return email.send(receivers=email_receiver, title=title, content=message)
-
 
 def linkedsee_warning(message, rate_limit=3600, message_prefix=None, token=None):
     """
@@ -3048,3 +3004,35 @@ def import_cls(cls_info):
     module, class_name = cls_info.rsplit(".", 1)
     cls = importlib.import_module(module).__getattribute__(class_name)
     return cls
+
+def load_config_from_json(path):
+    """Load JSON configuration from a file."""
+    try:
+        with open(path, 'r') as file:
+            return json.load(file)
+    except Exception as e:
+        raise ValueError(f"Could not load configuration: {e}")
+
+
+def print_dict_diff(dict1, dict2):
+    # Find keys present in dict1 but not in dict2
+    keys_in_dict1_not_in_dict2 = set(dict1.keys()) - set(dict2.keys())
+    if keys_in_dict1_not_in_dict2:
+        print("Keys present in dict1 but not in dict2:")
+        for key in keys_in_dict1_not_in_dict2:
+            print(f"Key: {key}, Value in dict1: {dict1[key]}")
+
+    # Find keys present in dict2 but not in dict1
+    keys_in_dict2_not_in_dict1 = set(dict2.keys()) - set(dict1.keys())
+    if keys_in_dict2_not_in_dict1:
+        print("Keys present in dict2 but not in dict1:")
+        for key in keys_in_dict2_not_in_dict1:
+            print(f"Key: {key}, Value in dict2: {dict2[key]}")
+
+    # Find keys present in both dicts but with different values
+    common_keys = set(dict1.keys()).intersection(set(dict2.keys()))
+    for key in common_keys:
+        if dict1[key] != dict2[key]:
+            print(f"Difference in value for key '{key}':")
+            print(f"  dict1 value: {dict1[key]}")
+            print(f"  dict2 value: {dict2[key]}")
