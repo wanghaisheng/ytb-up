@@ -18,3 +18,5 @@ youtube-stealth-**.json
 *.json
 .DS_Store
 /.venv/*
+info.log
+debug.log
