@@ -17,3 +17,4 @@ screen-recording/*
 youtube-stealth-**.json
 *.json
 .DS_Store
+/.venv/*

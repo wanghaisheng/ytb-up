@@ -9,7 +9,7 @@ class VideoSetting:
         self.logger = logger
 
     class WaitPolicyOptions(Enum):
-        GO_NEXT_COPYRIGHT_CHECK_SUCCESS = "go next after uploading success"
+        GO_NEXT_UPLOADING_SUCCESS = "go next after uploading success"
         GO_NEXT_PROCESSING_SUCCESS = "go next after processing success"
         GO_NEXT_COPYRIGHT_CHECK_SUCCESS = "go next after copyright check success"
 
@@ -552,6 +552,37 @@ class VideoSetting:
     #     'video_language': "English",
     #     'category': "Education"
     # }
+    # videosettings = {
+
+    #         "video_title": video_settings.get('video_title', VideoSetting.default_values['video_title']),
+    #         "video_description": video_settings.get('video_description', VideoSetting.default_values['video_description']),
+    #         "wait_policy": video_settings.get('wait_policy', VideoSetting.default_values['wait_policy']),
+    #         "thumbnail_local_path": video_settings.get('thumbnail_local_path', VideoSetting.default_values['thumbnail_local_path']),
+    #         "publish_policy": video_settings.get('publish_policy', VideoSetting.default_values['publish_policy']),
+    #         "tags": video_settings.get('tags', VideoSetting.default_values['tags']),
+    #         "release_date": video_settings.get('release_date', VideoSetting.default_values['release_date']),
+    #         "release_date_hour": video_settings.get('release_date_hour', VideoSetting.default_values['release_date_hour']),
+    #         "playlist": video_settings.get('playlist', VideoSetting.default_values['playlist']),
+    #         "is_age_restriction": video_settings.get('is_age_restriction', VideoSetting.default_values['is_age_restriction']),
+    #         "is_not_for_kid": video_settings.get('is_not_for_kid', VideoSetting.default_values['is_not_for_kid']),
+    #         "is_paid_promotion": video_settings.get('is_paid_promotion', VideoSetting.default_values['is_paid_promotion']),
+    #         "is_automatic_chapters": video_settings.get('is_automatic_chapters', VideoSetting.default_values['is_automatic_chapters']),
+    #         "is_featured_place": video_settings.get('is_featured_place', VideoSetting.default_values['is_featured_place']),
+    #         "video_language": video_settings.get('video_language', VideoSetting.default_values['video_language']),
+    #         "captions_certification": video_settings.get('captions_certification', VideoSetting.default_values['captions_certification']),
+    #         "video_film_date": video_settings.get('video_film_date', VideoSetting.default_values['video_film_date']),
+    #         "video_film_location": video_settings.get('video_film_location', VideoSetting.default_values['video_film_location']),
+    #         "license_type": video_settings.get('license_type', VideoSetting.default_values['license_type']),
+    #         "is_allow_embedding": video_settings.get('is_allow_embedding', VideoSetting.default_values['is_allow_embedding']),
+    #         "is_publish_to_subscriptions_feed_notify": video_settings.get('is_publish_to_subscriptions_feed_notify', VideoSetting.default_values['is_publish_to_subscriptions_feed_notify']),
+    #         "shorts_remixing_type": video_settings.get('shorts_remixing_type', VideoSetting.default_values['shorts_remixing_type']),
+    #         "categories": video_settings.get('categories', VideoSetting.default_values['categories']),
+    #         "comments_ratings_policy": video_settings.get('comments_ratings_policy', VideoSetting.default_values['comments_ratings_policy']),
+    #         "is_show_howmany_likes": video_settings.get('is_show_howmany_likes', VideoSetting.default_values['is_show_howmany_likes']),
+    #         "is_monetization_allowed": video_settings.get('is_monetization_allowed', VideoSetting.default_values['is_monetization_allowed']),
+    #         "first_comment": video_settings.get('first_comment', VideoSetting.default_values['first_comment']),
+    #         "subtitles": video_settings.get('subtitles', VideoSetting.default_values['subtitles'])
+    #     }
 
     # isinputok = validate_upload_options(**kwargs)
     # print(isinputok)  # Output: True

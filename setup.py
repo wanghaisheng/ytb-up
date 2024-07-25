@@ -19,21 +19,19 @@ packages.extend(["tsup"])
 requires = [
     "better-exceptions>=0.2.2",
     "parsel>=1.5.2",
-    "requests>=2.22.0",
     "bs4>=0.0.1",
-    "selenium>=3.141.0",
     "urllib3>=1.25.8",
     "loguru>=0.5.3",
-    "webdriver-manager>=3.5.3",
     "terminal-layout>=2.1.3",
-    "playwright",
+    "DrissionPage",
+    'python-dateutil'
 ]
 setuptools.setup(
     name="tsup",
     version=version,
     author="wanghaisheng",
     author_email="admin@tiktokastudio.com",
-    description="using playwright and selenium to upload and schedule publish video on social media platform like youtube,tiktok,douyin etc.",
+    description="using DrissionPage  to upload and schedule publish video on social media platform like youtube,tiktok,douyin etc.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="MIT",
@@ -49,6 +47,6 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    install_requires=["playwright"],
+    install_requires=["DrissionPage"],
     python_requires=">=3.6",
 )

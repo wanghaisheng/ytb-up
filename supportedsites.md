@@ -4,8 +4,3 @@ Supported upload to sites
 * douyin
 * tiktok
 
-
-Supported monitor and download live streaming sites
-
-* youtube
-* douyin

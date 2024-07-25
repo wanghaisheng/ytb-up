@@ -2,11 +2,10 @@ import json
 import os
 import random
 from time import sleep
-
+from tsup.utils.log import logger
 from datetime import datetime, date
 from typing import Optional, Literal, Tuple, List
 from tsup.utils.constants import *
-from loguru import logger
 from tsup.utils.tools import print_dict_diff
 from tsup.utils.exceptions import *
 from tsup.youtube.youtube_helper_ele import *
@@ -66,20 +65,22 @@ class YoutubeUpload:
         """Handles user login to YouTube."""
         if self.channel_cookie_path and os.path.exists(self.channel_cookie_path):
             self.logger.debug(f"Loading cookies from {self.channel_cookie_path}")
-            with open(self.channel_cookie_path, "r") as f:
-                cookies = json.load(f)["cookies"]
-            self.context.clear_cookies()
-            self.context.add_cookies(cookies)
-            self.logger.debug("Cookies loaded successfully.")
+ 
+            self.page.loadCookie(self.channel_cookie_path)
+        
+            if not check_login_status(self):
+
+                self.logger.debug("Cookies not provided. Attempting login.")
+                login_success = youtube_login(self)
+                if login_success:
+                    self.logger.debug("Login successful, saving cookie.")
+                    cookie_file = f"{self.username}_{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}.json"
+                    self.page.saveCookie(path=cookie_file)
+                else:
+                    self.logger.warning("Login failed. You may need to login manually.")
         else:
-            self.logger.debug("Cookies not provided. Attempting login.")
-            login_success = self.youtube_login(self.username, self.password)
-            if login_success:
-                self.logger.debug("Login successful, saving cookie.")
-                cookie_file = f"{self.username}_{datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}.json"
-                self.page.context.storage_state(path=cookie_file)
-            else:
-                self.logger.warning("Login failed. You may need to login manually.")
+            self.logger.debug("Cookies loaded successfully.")
+
 
     def upload_video(self, video_settings) -> Tuple[bool, Optional[str]]:
         """Main method for uploading a video."""

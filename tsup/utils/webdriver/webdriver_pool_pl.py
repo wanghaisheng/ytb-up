@@ -11,7 +11,7 @@ Created on 2021/3/18 4:59 下午
 import queue
 import threading
 
-from tsup.utils.log import log
+from tsup.utils.log import logger
 from tsup.utils.tools import Singleton
 from tsup.utils.webdriver.DPhelper import DPHelper
 
@@ -107,7 +107,7 @@ class WebDriverPoolDP:
 
     def close(self):
         if self.thread_safe:
-            log.info("暂不支持关闭需线程安全的driver")
+            logger.info("暂不支持关闭需线程安全的driver")
 
         while not self.queue.empty():
             driver = self.queue.get()

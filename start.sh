@@ -2,7 +2,10 @@
 
 set -eu
 
-python3 -m venv --upgrade-deps .venv
-.venv/bin/python3 -m pip install -U --disable-pip-version-check --editable .[non-termux]
-.venv/bin/python3 examples/onefile-example_youtube_windows.py
+python -m venv --upgrade-deps .venv
+source .venv/Scripts/activate
+
+python -m pip install -r requirements.txt
+python  setup.py install
+python examples/onefile-example_youtube_windows.py
 

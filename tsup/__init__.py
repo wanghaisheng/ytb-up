@@ -21,7 +21,6 @@ __all__ = [
 
 from tsup.utils.exceptions import *
 from tsup.utils.constants import *
-from tsup.utils.logging import Log
 from tsup.youtube.youtube_upload import YoutubeUpload
 from tsup.tiktok.sessionId.uploader import upload2TiktokSessionId
 

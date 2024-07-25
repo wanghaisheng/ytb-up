@@ -617,7 +617,7 @@ def youtube_login(self):
                     )
                     self.page.wait_for_timeout(random.uniform(1000, 2000))
 
-            return self.check_login_success()
+            return check_login_success(self)
 
         except Exception as e:
             self.log.error(f"Encountered an error while logging in: {e}")
@@ -840,7 +840,7 @@ def passwordlogin(self, page):
     try:
         page.ele("@link=Sign in")
         page.ele("@link=Sign in").click()
-        self.log.debug("detected  sign in button")s
+        self.log.debug("detected  sign in button")
 
     except:
         self.log.debug("could not find sign in button")
