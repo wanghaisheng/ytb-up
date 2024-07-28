@@ -33,10 +33,7 @@ if __name__ == "__main__":
     # checkRequirments("webkit")
     # checkRequirments("chromium")
     sites = [
-        "https://www.youtube.com/upload?persist_gl=1",
-        "https://www.tiktok.com",
-        "https://www.douyin.com",
-        "https://www.tiktok.com/login/phone-or-email/email",
+        "https://www.youtube.com/upload?persist_gl=1"
     ]
 # channelname is your account name or something else
 # for youtube

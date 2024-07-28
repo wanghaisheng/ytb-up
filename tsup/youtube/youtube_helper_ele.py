@@ -446,7 +446,7 @@ def detect_verify_dialog(self, page):
             # page.click('text=Login')
             # sleep(60)
             # page.ele('#confirm-button > div:nth-child(2)').click()
-            page.goto(
+            page.get(
                 "https://accounts.google.com/signin/v2/identifier?service=youtube&uilel=3&continue=https%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Ddesktop%26next%3Dhttps%253A%252F%252Fstudio.youtube.com%252Freauth%26feature%3Dreauth%26authuser%3D3%26pageid%3D106691143538188646876%26skip_identity_prompt%3Dtrue&hl=en&authuser=3&rart=ANgoxcd6AUvx_ynaUmq5M6nROFwTagKglTZqT8c97xb1AEzoDasGeJ14cNlvYfH1_mJsl7us_sFLNGJskNrJyjMaIE2KklrO7Q&flowName=GlifWebSignIn&flowEntry=ServiceLogin"
             )
             page.ele("#identifierId")
@@ -484,7 +484,7 @@ def detect_verify_dialog(self, page):
 def set_channel_language_english(self):
 
     try:
-        self.page.goto(YoutubeHomePageURL, timeout=self.timeout)
+        self.page.get(YoutubeHomePageURL, timeout=self.timeout)
     except:
         self.logger.debug(
             "failed to youtube studio home page due to network issue,pls check your speed"
@@ -541,7 +541,7 @@ def navigate_to_upload_studiopage(self):
     self.set_channel_language_english()
     self.logger.debug("go to youtube studio home page")
     try:
-        self.page.goto(YOUTUBE_STUDIO_URL, timeout=self.timeout)
+        self.page.get(YOUTUBE_STUDIO_URL, timeout=self.timeout)
     except:
         self.logger.debug(
             "failed to youtube studio home page due to network issue,pls check your speed"
@@ -560,7 +560,7 @@ def navigate_to_upload_studiopage(self):
         self.logger.debug("your dashborad is in English")
 
     try:
-        self.page.goto(YOUTUBE_UPLOAD_URL, timeout=self.timeout)
+        self.page.get(YOUTUBE_UPLOAD_URL, timeout=self.timeout)
     except:
         self.logger.debug(
             f"failed to load youtube studio upload page:{YOUTUBE_UPLOAD_URL} due to network issue,pls check your speed"
@@ -596,7 +596,7 @@ def youtube_login(self):
             f"Initializing Chrome... {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
         )
         try:
-            self.page.goto(url)
+            self.page.get(url)
 
             for attempt in range(10):
                 current_url = self.page.url
@@ -663,7 +663,7 @@ def handle_password_challenge(self, attempt):
             self.page.ele('//*[@id="passwordNext"]//button').click()
             self.page.wait_for_timeout(random.uniform(2000, 4000))
             self.log.info("Clicked Next after password entry.")
-            self.page.goto("https://studio.youtube.com/channel/")
+            self.page.get("https://studio.youtube.com/channel/")
         else:
             self.log.warning(f"Password input not visible on attempt {attempt}.")
 
@@ -834,7 +834,7 @@ def confirm_logged_in_tiktok(self) -> bool:
 
 
 def passwordlogin(self, page):
-    page.goto(YoutubeHomePageURL)
+    page.get(YoutubeHomePageURL)
     self.log.debug("try to login in from youtube homepage")
 
     try:

@@ -3,3 +3,38 @@
 2024-07-26 01:39:38.389 | ERROR    | tsup.youtube.youtube_upload:upload_video:94 - /path/to/video.mp4 is not found on the disk
 2024-07-26 01:39:38.389 | ERROR    | tsup.youtube.youtube_upload:upload_video:94 - /path/to/video.mp4 is not found on the disk
 2024-07-26 01:39:38.390 | ERROR    | tsup.youtube.youtube_upload:upload_video:94 - /path/to/video.mp4 is not found on the disk
+2024-07-28 21:52:23.100 | ERROR    | tsup.youtube.youtube_upload:upload_video:94 - /path/to/video.mp4 is not found on the disk
+2024-07-28 21:52:23.102 | ERROR    | tsup.youtube.youtube_upload:upload_video:94 - /path/to/video.mp4 is not found on the disk
+2024-07-28 21:52:23.102 | ERROR    | tsup.youtube.youtube_upload:upload_video:94 - /path/to/video.mp4 is not found on the disk
+2024-07-28 21:52:23.102 | ERROR    | tsup.youtube.youtube_upload:upload_video:94 - /path/to/video.mp4 is not found on the disk
+2024-07-28 21:52:23.104 | ERROR    | tsup.youtube.youtube_upload:upload_video:94 - /path/to/video.mp4 is not found on the disk
+2024-07-28 22:03:09.730 | ERROR    | tsup.youtube.youtube_upload:upload_video:94 - test/horizon/OP.mp4 is not found on the disk
+2024-07-28 22:03:09.730 | ERROR    | tsup.youtube.youtube_upload:upload_video:94 - test/horizon/OP.mp4 is not found on the disk
+2024-07-28 22:03:09.732 | ERROR    | tsup.youtube.youtube_upload:upload_video:94 - test/horizon/OP.mp4 is not found on the disk
+2024-07-28 22:03:09.733 | ERROR    | tsup.youtube.youtube_upload:upload_video:94 - test/horizon/OP.mp4 is not found on the disk
+2024-07-28 22:03:09.734 | ERROR    | tsup.youtube.youtube_upload:upload_video:94 - test/horizon/OP.mp4 is not found on the disk
+2024-07-28 22:22:59.254 | ERROR    | tsup.youtube.validate_params:validate_upload_options:534 - Invalid type for 'video_title'. Expected <class 'NoneType'>. Using default.
+2024-07-28 22:22:59.255 | ERROR    | tsup.youtube.validate_params:validate_upload_options:534 - Invalid type for 'video_description'. Expected <class 'NoneType'>. Using default.
+2024-07-28 22:22:59.255 | ERROR    | tsup.youtube.validate_params:validate_upload_options:437 - Invalid value 'go next after copyright check success' for 'wait_policy'. Using default.
+2024-07-28 22:22:59.256 | ERROR    | tsup.youtube.validate_params:validate_upload_options:534 - Invalid type for 'thumbnail_local_path'. Expected <class 'NoneType'>. Using default.
+2024-07-28 22:22:59.256 | ERROR    | tsup.youtube.validate_params:validate_upload_options:534 - Invalid type for 'playlist'. Expected <class 'NoneType'>. Using default.
+2024-07-28 22:22:59.257 | ERROR    | tsup.youtube.validate_params:validate_upload_options:453 - Invalid value '0' for 'captions_certification'. Using default.
+2024-07-28 22:22:59.257 | ERROR    | tsup.youtube.validate_params:validate_upload_options:461 - Invalid value '0' for 'license_type'. Using default.
+2024-07-28 22:22:59.258 | ERROR    | tsup.youtube.validate_params:validate_upload_options:477 - Invalid value '1' for 'comments_ratings_policy'. Using default.
+2024-07-28 22:33:33.087 | ERROR    | tsup.youtube.validate_params:validate_upload_options:437 - Invalid value 'go next after copyright check success' for 'wait_policy'. Using default.
+2024-07-28 22:33:33.088 | ERROR    | tsup.youtube.validate_params:validate_upload_options:534 - Invalid type for 'playlist'. Expected <class 'NoneType'>. Using default.
+2024-07-28 22:33:33.088 | ERROR    | tsup.youtube.validate_params:validate_upload_options:453 - Invalid value '0' for 'captions_certification'. Using default.
+2024-07-28 22:33:33.090 | ERROR    | tsup.youtube.validate_params:validate_upload_options:461 - Invalid value '0' for 'license_type'. Using default.
+2024-07-28 22:33:33.090 | ERROR    | tsup.youtube.validate_params:validate_upload_options:534 - Invalid type for 'shorts_remixing_type'. Expected <enum 'ShortsRemixingTypeOptions'>. Using default.
+2024-07-28 22:33:33.091 | ERROR    | tsup.youtube.validate_params:validate_upload_options:477 - Invalid value '1' for 'comments_ratings_policy'. Using default.
+2024-07-28 22:36:40.355 | ERROR    | tsup.youtube.validate_params:validate_upload_options:437 - Invalid value 'go next after copyright check success' for 'wait_policy'. Using default.
+2024-07-28 22:36:40.355 | ERROR    | tsup.youtube.validate_params:validate_upload_options:534 - Invalid type for 'playlist'. Expected <class 'NoneType'>. Using default.
+2024-07-28 22:36:40.357 | ERROR    | tsup.youtube.validate_params:validate_upload_options:453 - Invalid value '0' for 'captions_certification'. Using default.
+2024-07-28 22:36:40.357 | ERROR    | tsup.youtube.validate_params:validate_upload_options:461 - Invalid value '0' for 'license_type'. Using default.
+2024-07-28 22:36:40.358 | ERROR    | tsup.youtube.validate_params:validate_upload_options:477 - Invalid value '1' for 'comments_ratings_policy'. Using default.
+2024-07-28 22:38:31.046 | ERROR    | tsup.youtube.validate_params:validate_upload_options:440 - Invalid value '0' for 'wait_policy'. Using default.
+2024-07-28 22:38:31.046 | ERROR    | tsup.youtube.validate_params:validate_upload_options:537 - Invalid type for 'playlist'. Expected <class 'NoneType'>. Using default.
+2024-07-28 22:38:31.047 | ERROR    | tsup.youtube.validate_params:validate_upload_options:456 - Invalid value '0' for 'captions_certification'. Using default.
+2024-07-28 22:38:31.047 | ERROR    | tsup.youtube.validate_params:validate_upload_options:464 - Invalid value '0' for 'license_type'. Using default.
+2024-07-28 22:38:31.048 | ERROR    | tsup.youtube.validate_params:validate_upload_options:480 - Invalid value '1' for 'comments_ratings_policy'. Using default.
+2024-07-28 22:45:10.971 | ERROR    | tsup.youtube.validate_params:validate_upload_options:537 - Invalid type for 'playlist'. Expected <class 'NoneType'>. Using default.

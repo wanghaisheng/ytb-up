@@ -7,5 +7,5 @@ Created on 2022/9/7 4:39 PM
 @author: Boris
 @email: boris_liu@foxmail.com
 """
-from tsup.utils.webdriver.DPhelper import DPHelper
+from tsup.utils.webdriver.dp_helper import DpHelper
 

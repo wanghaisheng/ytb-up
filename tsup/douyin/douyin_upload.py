@@ -9,7 +9,7 @@ from tsup.utils.constants import *
 from tsup.utils.tools import print_dict_diff
 from tsup.utils.exceptions import *
 from tsup.youtube.youtube_helper_ele import *
-from tsup.utils.webdriver import DPhelper
+from tsup.utils.webdriver.dp_helper import DpHelper
 from tsup.youtube.validate_params import VideoSetting
 
 

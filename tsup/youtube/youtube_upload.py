@@ -9,19 +9,21 @@ from tsup.utils.constants import *
 from tsup.utils.tools import print_dict_diff
 from tsup.utils.exceptions import *
 from tsup.youtube.youtube_helper_ele import *
-from tsup.utils.webdriver import DPhelper
+from tsup.utils.webdriver.dp_helper import DpHelper
 from tsup.youtube.validate_params import VideoSetting
 
 
 class YoutubeUpload:
     def __init__(self, config) -> None:
 
-        self.timeout = config.get("timeout", 200 * 1000)
+        self.timeout = config.get("timeout", 10)
         self.username = config.get("username", None)
         self.password = config.get("password", None)
         self.channel_cookie_path = config.get("channel_cookie_path", None)
         self.root_profile_directory = config.get("root_profile_directory", None)
+        self.browser_path = config.get("browser_path", None)
         self.proxy_option = config.get("proxy_option", None)
+
         self.is_open_browser = config.get("is_open_browser", True)
         self.is_record_video = config.get("is_record_video", False)
         self.is_debug = config.get("is_debug", True)
@@ -56,10 +58,14 @@ class YoutubeUpload:
 
     def initialize_driver(self):
         """Initialize the Playwright driver."""
-        self.page = DPhelper(
-            proxy=self.proxy_option,
-            timeout=3000,
+        browser = DpHelper(
+            proxy_server=self.proxy_option,
+            browser_path=self.browser_path,
+            timeout=self.timeout,
+            HEADLESS=not self.is_open_browser 
         )
+        self.page=browser.driver
+        logger.info(f'success start to browser:{self.page}')
 
     def cookielogin(self):
         """Handles user login to YouTube."""
@@ -86,6 +92,7 @@ class YoutubeUpload:
         """Main method for uploading a video."""
         # Assuming VideoSetting.default_values and video_settings are already defined as shown in the previous example
         # "video_id": video_settings.get('video_id', VideoSetting.default_values['video_id']),
+        logger.info('start to validate video meta')
         video_path = video_settings.get("video_local_path", None)
         if not video_path:
             logger.error("please provide a video locale path")
@@ -98,13 +105,17 @@ class YoutubeUpload:
             logger.error(f"{video_path}  filesize is 0")
             return
 
-        videosettings = VideoSetting(self.logger).validate_upload_options(videosettings)
+        videosettings = VideoSetting(self.logger).validate_upload_options(video_settings)
         if not video_settings == videosettings:
             self.logger.info(
                 f"video setting to be upload is changed:{print_dict_diff(video_settings,videosettings)}"
             )
-        self.page.goto(YoutubeHomePageURL, timeout=self.timeout)
-
+        logger.info('start the browser')
+        self.initialize_driver()
+        logger.info('start to go to uploadpage')
+        
+        self.page.get(YoutubeHomePageURL, timeout=self.timeout)
+        self.page.wait.load_start()
         # Check login status
         if not check_login_status(self):
             self.cookielogin()

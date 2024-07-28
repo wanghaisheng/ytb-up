@@ -1,3 +1,9 @@
+**Update 2024-07-24**
+
+1. change playwright to drissionpage
+
+2. dramatically reformat code
+
 **Update 2023-09-17**
 
 1. add batch file process for tiktok 

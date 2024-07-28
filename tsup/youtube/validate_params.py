@@ -9,9 +9,12 @@ class VideoSetting:
         self.logger = logger
 
     class WaitPolicyOptions(Enum):
-        GO_NEXT_UPLOADING_SUCCESS = "go next after uploading success"
-        GO_NEXT_PROCESSING_SUCCESS = "go next after processing success"
-        GO_NEXT_COPYRIGHT_CHECK_SUCCESS = "go next after copyright check success"
+        GO_NEXT_UPLOADING_SUCCESS = 0
+        # "go next after uploading success"
+        GO_NEXT_PROCESSING_SUCCESS = 1
+        # "go next after processing success"
+        GO_NEXT_COPYRIGHT_CHECK_SUCCESS =2
+        # "go next after copyright check success"
 
     class PublishPolicyOptions(Enum):
         PRIVATE = 0
@@ -396,11 +399,11 @@ class VideoSetting:
         "Travel & Events",
     ]
     default_values = {
-        "video_title": None,
-        "video_description": None,
-        "wait_policy": "go next after copyright check success",
-        "thumbnail_local_path": None,
-        "publish_policy": 0,
+        # "video_title": None,
+        # "video_description": None,
+        "wait_policy": WaitPolicyOptions.GO_NEXT_COPYRIGHT_CHECK_SUCCESS.value,
+        # "thumbnail_local_path": None,
+        "publish_policy": PublishPolicyOptions.PRIVATE.value,
         "tags": [],
         "release_date": datetime(
             date.today().year, date.today().month, date.today().day
@@ -413,27 +416,27 @@ class VideoSetting:
         "is_automatic_chapters": True,
         "is_featured_place": True,
         "video_language": None,
-        "captions_certification": 0,
+        "captions_certification": CaptionsCertificationOptions.NONE.value,
         "video_film_date": None,
         "video_film_location": None,
-        "license_type": 0,
+        "license_type": LicenseTypeOptions.STANDARD_YOUTUBE_LICENSE.value,
         "is_allow_embedding": True,
         "is_publish_to_subscriptions_feed_notify": True,
-        "shorts_remixing_type": 0,
+        "shorts_remixing_type": ShortsRemixingTypeOptions.DONT_ALLOW_REMIXING.value,
         "categories": None,
-        "comments_ratings_policy": 1,
+        "comments_ratings_policy": CommentsRatingsPolicyOptions.HOLD_POTENTIALLY_INAPPROPRIATE_COMMENTS.value,
         "is_show_howmany_likes": True,
         "is_monetization_allowed": True,
         "first_comment": None,
         "subtitles": None,
     }
 
-    def validate_upload_options(self, **kwargs: Dict[str, int]) -> Dict[str, int]:
+    def validate_upload_options(self,kwargs):
         validated_kwargs = {}
 
         for key, value in kwargs.items():
             if key == "wait_policy":
-                if not isinstance(value, VideoSetting.WaitPolicyOptions):
+                if not value in  VideoSetting.WaitPolicyOptions:
                     self.logger.error(
                         f"Invalid value '{value}' for 'wait_policy'. Using default."
                     )
@@ -441,7 +444,7 @@ class VideoSetting:
                 else:
                     validated_kwargs[key] = value
             elif key == "publish_policy":
-                if not isinstance(value, VideoSetting.PublishPolicyOptions):
+                if not  value in  VideoSetting.PublishPolicyOptions:
                     self.logger.error(
                         f"Invalid value '{value}' for 'publish_policy'. Using default."
                     )
@@ -449,7 +452,7 @@ class VideoSetting:
                 else:
                     validated_kwargs[key] = value
             elif key == "captions_certification":
-                if not isinstance(value, VideoSetting.CaptionsCertificationOptions):
+                if not value in  VideoSetting.CaptionsCertificationOptions:
                     self.logger.error(
                         f"Invalid value '{value}' for 'captions_certification'. Using default."
                     )
@@ -457,7 +460,7 @@ class VideoSetting:
                 else:
                     validated_kwargs[key] = value
             elif key == "license_type":
-                if not isinstance(value, VideoSetting.LicenseTypeOptions):
+                if not value in  VideoSetting.LicenseTypeOptions:
                     self.logger.error(
                         f"Invalid value '{value}' for 'license_type'. Using default."
                     )
@@ -465,7 +468,7 @@ class VideoSetting:
                 else:
                     validated_kwargs[key] = value
             elif key == "shorts_remixing":
-                if not isinstance(value, VideoSetting.ShortsRemixingTypeOptions):
+                if not  value in VideoSetting.ShortsRemixingTypeOptions:
                     self.logger.error(
                         f"Invalid value '{value}' for 'shorts_remixing'. Using default."
                     )
@@ -473,7 +476,7 @@ class VideoSetting:
                 else:
                     validated_kwargs[key] = value
             elif key == "comments_ratings_policy":
-                if not isinstance(value, VideoSetting.CommentsRatingsPolicyOptions):
+                if not value in  VideoSetting.CommentsRatingsPolicyOptions:
                     self.logger.error(
                         f"Invalid value '{value}' for 'comments_ratings_policy'. Using default."
                     )
@@ -526,17 +529,15 @@ class VideoSetting:
                     validated_kwargs[key] = VideoSetting.default_values.get(key)
                 else:
                     validated_kwargs[key] = value
-            else:
+            # else:
                 # Check if the key exists in the default_values and if the value matches its type
-                if key in VideoSetting.default_values and not isinstance(
-                    value, type(VideoSetting.default_values[key])
-                ):
-                    self.logger.error(
-                        f"Invalid type for '{key}'. Expected {type(VideoSetting.default_values[key])}. Using default."
+            if key in VideoSetting.default_values.keys():
+                self.logger.debug(
+                        f"video pararm:'{key}' value is {value}. Defualt one is:{type(VideoSetting.default_values[key])}"
                     )
-                    validated_kwargs[key] = VideoSetting.default_values.get(key)
-                else:
-                    validated_kwargs[key] = value
+                    # validated_kwargs[key] = VideoSetting.default_values.get(key)
+                # else:
+                    # validated_kwargs[key] = value
 
         return validated_kwargs
 

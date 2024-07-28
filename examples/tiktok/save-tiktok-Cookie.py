@@ -8,13 +8,14 @@ from tsup.utils.webdriver.DPhelper import DPHelper
 def getCookie(
     browserType: str = "chrome",
     proxyserver: str = "",
-    channelname: str = "youtube-channel",
-    url: str = "www.youtube.com",
+    channelname: str = "tk-channel",
+    url: str = None,
 ):
     browser=DPHelper(browser_path=None,HEADLESS=False,proxy_server=proxyserver)
     browser.get(url)
     while True:
-        if 'studio.youtube.com' in browser.url:
+        # www.tiktok.com/tiktokstudio/upload?lang=en
+        if 'tiktokstudio/upload?lang=en' in browser.url:
             browser.saveCookie(outfilepath=channelname+'.txt')
             if os.path.exists(channelname+'.txt'):
 
@@ -29,37 +30,10 @@ def getCookie(
 
 
 if __name__ == "__main__":
-    # checkRequirments("firefox")
-    # checkRequirments("webkit")
-    # checkRequirments("chromium")
+
     sites = [
-        "https://www.youtube.com/upload?persist_gl=1",
-        "https://www.tiktok.com",
-        "https://www.douyin.com",
-        "https://www.tiktok.com/login/phone-or-email/email",
+        "https://www.tiktok.com/login?lang=en"
     ]
 # channelname is your account name or something else
 # for youtube
 getCookie(proxyserver='socks5://127.0.0.1:1080',channelname='fastlane',url=sites[0])
-
-# for tiktok
-# i7SNiSG8V7jND^
-# offloaddogsboner@outlook.com
-# getCookie(
-#     browserType="firefox",
-#     proxyserver="socks5://127.0.0.1:1080",
-#     channelname="offloaddogsboner",
-#     url=sites[3],
-# )
-# unboxdoctor@outlook.com
-# 95Qa*G*za5Gb
-# getCookie(
-#     browserType="firefox",
-#     proxyserver="socks5://127.0.0.1:1080",
-#     channelname="",
-#     url=sites[0],
-# )
-
-
-# for douyin
-# getCookie(browserType='firefox',proxyserver='socks5://127.0.0.1:1080',channelname='',url=sites[2])
